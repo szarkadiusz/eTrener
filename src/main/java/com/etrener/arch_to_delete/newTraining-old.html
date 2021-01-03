@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title>NewTraining</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#7952b3">
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet">
+</head>
+<body class="d-flex h-100 text-center text-white bg-dark">
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="mb-auto">
+        <div>
+            <h3 class="float-md-start mb-0">eTrener</h3>
+            <nav class="nav nav-masthead justify-content-center float-md-end">
+                <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+                <a class="nav-link" href="#">Lista szkoleń</a>
+
+            </nav>
+        </div>
+    </header>
+
+    <main class="px-3">
+
+        <p class="lead">Dodaj parametry szkolenia.</p>
+        <br>
+
+        <form th:action="@{/requestForm}"  th:object="${trainingProperties}" th:method="POST" >
+
+            <!--Trainer input-->
+            <label for="exampleDataList" class="form-label"><p><h4>Wybierz Trenera:</h4></p></label>
+            <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Wpisz imię Trenera">
+            <datalist id="datalistOptions">
+                <option>
+                <input  th:each="trainer:${trainersList}"
+                        th:text="${trainer}"
+                        th:field="*{dedicatedTrainer}"
+                        th:value="${trainingProperties.dedicatedTrainer}"
+                       name = "trainerDeclaredByUser">
+                </option>
+            </datalist>
+
+            <br>
+
+            <!--Checkboxes-->
+            <p><h4>Wybierz typ szkolenia:</h4></p>
+            <br>
+            <div class="form-check form-switch" th:each="trainingtype:${trainingPropertiesList}">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"th:text="${trainingtype}"
+                       th:value="${trainingProperties.type}"
+                       th:field="*{type}" name = "trainingTypeDeclaredByUser">
+                <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+            </div>
+            <br>
+            <br>
+            <!--Submit-->
+            <p class="lead">
+                <input type="submit" value="Dodaj szczegóły szkolenia" class="btn btn-lg btn-secondary fw-bold border-white bg-white"/>
+
+
+            </p>
+        </form>
+
+    </main>
+
+    <footer class="mt-auto text-white-50">
+        <p>eTrener 2021</p>
+    </footer>
+</div>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+        integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"
+        integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
+        crossorigin="anonymous"></script>
+<link th:href="@{/css/cover.css}" rel="stylesheet">
+
+</body>
+</html>
