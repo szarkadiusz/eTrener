@@ -1,8 +1,6 @@
 package com.etrener;
 
 
-import com.etrener.arch_to_delete.Training;
-import com.etrener.arch_to_delete.TrainingProperties;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -54,8 +52,6 @@ public class NewTraining {
         this.placedAt = new Date();
     }
 
-    @ManyToMany(targetEntity = Training.class)
-    private List<Training> trainings = new ArrayList<>();
 
     public static enum TrainingType {
         INTRO, HEALTHSAFETY, PRODUCT, WORKSTATION;
@@ -69,14 +65,14 @@ public class NewTraining {
 
 
     public static List addTrainingTypesToList() {
-        TrainingProperties.TrainingType[] trainingType = TrainingProperties.TrainingType.values();
-        List<TrainingProperties.TrainingType> trainingTypesList = List.of(trainingType);
+        NewTraining.TrainingType[] trainingType = NewTraining.TrainingType.values();
+        List<NewTraining.TrainingType> trainingTypesList = List.of(trainingType);
         return trainingTypesList;
     }
 
     public static List addTrainersToList() {
-        TrainingProperties.DedicatedTrainer[] trainers = TrainingProperties.DedicatedTrainer.values();
-        List<TrainingProperties.DedicatedTrainer> trainersList = List.of(trainers);
+        NewTraining.DedicatedTrainer[] trainers = NewTraining.DedicatedTrainer.values();
+        List<NewTraining.DedicatedTrainer> trainersList = List.of(trainers);
         return trainersList;
 
     }
