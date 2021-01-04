@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.79.0">
-    <title>Checkout example · Bootstrap v5.0</title>
+    <title>eTrener - New Training</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
 
@@ -101,9 +101,7 @@
                                     <br>
                                 </div>
                                 <small class="text-muted">Szkolenie <span th:text="${training}"></span></small>
-
                             </div>
-                            <div>
                     </li>
                 </ul>
 
@@ -112,13 +110,13 @@
                 <form class="card p-2">
                     <div class="form-group">
 
-                        <label for="exampleFormControlSelect1">Kliknij i wybierz</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>Jan</option>
-                            <option>Andrzej</option>
-                            <option>Szymon</option>
-                            <option>Stefan</option>
-                            <option>Beata</option>
+                        <label for="exampleFormControlSelect">Kliknij i wybierz</label>
+                        <select class="form-control" id="exampleFormControlSelect">
+                            <datalist id="datalistOptions">
+                                <option th:each="trainer:${listOfTrainers}"
+                                    th:text="${trainer}">
+                                </option>
+                            </datalist>
                         </select>
                     </div>
                 </form>
