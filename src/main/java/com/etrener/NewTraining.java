@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class NewTraining {
@@ -36,6 +39,8 @@ public class NewTraining {
     @NotBlank(message = "Wybierz przynajmniej jedną opcję")
     static TrainingType trainingType;
     private Date createdAt;
+    private static String trainerList;
+    private static String trainingsList;
 
     @PrePersist
     void placedAt() {
@@ -43,7 +48,21 @@ public class NewTraining {
     }
 
 
-
+public static String trainingsListToString(){
+    trainerList=addTrainingTypesToList()
+            .stream()
+            .map(s->String.valueOf(s))
+            .collect(Collectors.joining("-"," " ," " ))
+            .toString();
+        return trainerList;
+}
+    public static String trainersListtoString(){
+        trainingsList=addTrainersToList()
+                .stream()
+                .map(s->String.valueOf(s))
+                .toString();
+        return trainingsList;
+    }
 
     public static List addTrainingTypesToList() {
         TrainingType[] trainingTypes = TrainingType.values();
@@ -51,12 +70,48 @@ public class NewTraining {
         return trainingTypesList;
     }
 
+    public NewTraining() {
+    }
+
+    public static void setTrainerList(String trainerList) {
+        addTrainersToList();
+        trainersListtoString();
+    }
+
+    public static void setTrainingsList(String trainingsList) {
+        addTrainingTypesToList();
+        trainingsListToString();
+    }
+
+    public NewTraining(@Digits(integer = 3, fraction = 0, message = "Niewłaściwy ID Pracownika") Long workerId, String workerName, String workerSurname, boolean isTrainingPrioritized, String issuedByLogin, String trainerList, String trainersList) {
+        this.workerId = workerId;
+        this.workerName = workerName;
+        this.workerSurname = workerSurname;
+        this.isTrainingPrioritized = isTrainingPrioritized;
+        this.issuedByLogin = issuedByLogin;
+        this.trainerList = trainerList;
+        this.trainingsList = trainersList;
+    }
+
     public static List addTrainersToList() {
         DedicatedTrainer[] trainers = DedicatedTrainer.values();
         List<DedicatedTrainer> trainersList = List.of(trainers);
         return trainersList;
 
+
     }
+
+    public String getTrainerList() {
+        return trainerList;
+    }
+
+
+
+    public String getTrainersList() {
+        return trainingsList;
+    }
+
+
 
     public Long getWorkerId() {
         return workerId;
@@ -98,14 +153,5 @@ public class NewTraining {
         this.issuedByLogin = issuedByLogin;
     }
 
-    public NewTraining() {
-    }
 
-    public NewTraining(@Digits(integer = 3, fraction = 0, message = "Niewłaściwy ID Pracownika") Long workerId, String workerName, String workerSurname, boolean isTrainingPrioritized, String issuedByLogin) {
-        this.workerId = workerId;
-        this.workerName = workerName;
-        this.workerSurname = workerSurname;
-        this.isTrainingPrioritized = isTrainingPrioritized;
-        this.issuedByLogin = issuedByLogin;
-    }
 }

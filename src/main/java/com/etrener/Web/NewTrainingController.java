@@ -2,7 +2,6 @@ package com.etrener.Web;
 
 import com.Service.NewTrainingService;
 import com.etrener.NewTraining;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,34 +20,30 @@ public class NewTrainingController implements WebMvcConfigurer {
     }
 
     @GetMapping("/newTraining")
-    public String getNewTraining (Model model){
+    public String getNewTraining(Model model) {
 
         NewTraining newTraining = new NewTraining();
 
-        model.addAttribute("listOfTrainers",newTraining.addTrainersToList());
-        model.addAttribute("listOfTraings",newTraining.addTrainingTypesToList());
-//        model.addAttribute("",newTraining.setWorkerName();)
-//        model.addAttribute("",newTraining.setWorkerSurname();)
-//        model.addAttribute("",newTraining.setWorkerId();)
-//        model.addAttribute("",newTraining.isTrainingPrioritized();)
-//        model.addAttribute("",newTraining.setIssuedByLogin();)
-
-
-
-
+        model.addAttribute("listOfTrainers", newTraining.addTrainersToList());
+        model.addAttribute("listOfTraings", newTraining.addTrainingTypesToList());
+        model.addAttribute("newTraining", newTraining);
 
         return "newTraining";
     }
 
     @PostMapping("/newTraining")
-    public void postNewTraining (Model model){
+    public String postNewTraining(Model model) {
 
 
+
+        newTrainingService.saveNewTraining((NewTraining) model.getAttribute(postNewTraining(model)));
+
+        return "redirect:/saved";
     }
 
 
     @GetMapping("/saved")
-    public String displaySavedPage(){
+    public String displaySavedPage() {
         return "saved";
     }
 }
